@@ -1,15 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FastAPI with HTML and JavaScript</title>
+    <title>Waifu Selector</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        #uploadedImage {
+            max-width: 100%; /* Gambar akan mengisi lebar container */
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #007bff; /* Warna border untuk gambar yang diunggah */
+            border-radius: 5px;
+        }
+
+        #uploadButton {
+            background-color: #007bff; /* Warna tombol unggah */
+            color: #fff; /* Warna teks tombol unggah */
+        }
+
+        #uploadButton:hover {
+            background-color: #0056b3; /* Warna tombol saat dihover */
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Selamat datang di FastAPI</h1>
-    <input type="file" id="imageInput" accept="image/*">
-    <button id="uploadButton">Unggah Gambar</button>
-    <div id="dataContainer"></div>
-    <img id="uploadedImage" style="display: none;" src="" alt="Gambar yang diunggah">
-    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center">Selamat Datang di Waifu Selector</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Unggah Gambar</h5>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="imageInput" accept="image/*">
+                        </div>
+                        <button class="btn btn-primary btn-block" id="uploadButton">Unggah</button>
+                    </div>
+                </div>
+                <div id="dataContainer" class="mt-4"></div>
+                <img id="uploadedImage" src="" alt="Gambar yang diunggah" style="display: none;">
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById("uploadButton").addEventListener("click", async () => {
             const imageInput = document.getElementById("imageInput");
@@ -24,13 +66,17 @@
                 });
                 
                 if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById("dataContainer").innerHTML = `Pesan: ${data.message}`;
+                    document.getElementById("dataContainer").innerHTML = "Gambar berhasil diunggah";
+                    document.getElementById("dataContainer").classList.add("alert", "alert-warning");
                     document.getElementById("uploadedImage").src = URL.createObjectURL(imageFile);
                     document.getElementById("uploadedImage").style.display = "block";
                 }
             }
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
