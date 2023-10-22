@@ -11,20 +11,20 @@
         }
 
         #uploadedImage {
-            max-width: 100%; /* Gambar akan mengisi lebar container */
+            max-width: 100%;
             display: block;
             margin: 0 auto;
-            border: 2px solid #007bff; /* Warna border untuk gambar yang diunggah */
+            border: 2px solid #007bff;
             border-radius: 5px;
         }
 
         #uploadButton {
-            background-color: #007bff; /* Warna tombol unggah */
-            color: #fff; /* Warna teks tombol unggah */
+            background-color: #007bff;
+            color: #fff;
         }
 
         #uploadButton:hover {
-            background-color: #0056b3; /* Warna tombol saat dihover */
+            background-color: #0056b3;
         }
 
         .form-group {
@@ -46,8 +46,10 @@
                         <button class="btn btn-primary btn-block" id="uploadButton">Unggah</button>
                     </div>
                 </div>
-                <div id="dataContainer" class="mt-4"></div>
-                <img id="uploadedImage" src="" alt="Gambar yang diunggah" style="display: none;">
+                <div id="dataContainer" class="mt-4">
+                    <p id="predictionText" class="text-center"></p>
+                    <img id="uploadedImage" src="" alt="Gambar yang diunggah" style="display: none;">
+                </div>
             </div>
         </div>
     </div>
@@ -59,17 +61,20 @@
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("image", imageFile);
-                
+
                 const response = await fetch("/upload/", {
                     method: "POST",
                     body: formData,
                 });
-                
+
                 if (response.ok) {
-                    document.getElementById("dataContainer").innerHTML = "Gambar berhasil diunggah";
-                    document.getElementById("dataContainer").classList.add("alert", "alert-warning");
-                    document.getElementById("uploadedImage").src = URL.createObjectURL(imageFile);
-                    document.getElementById("uploadedImage").style.display = "block";
+                    const data = await response.json();
+                    const predictionText = document.getElementById("predictionText");
+                    predictionText.innerText = `Hasil Prediksi: ${data.prediction}`;
+
+                    const uploadedImage = document.getElementById("uploadedImage");
+                    uploadedImage.src = data.image_filename;
+                    uploadedImage.style.display = "block";
                 }
             }
         });
@@ -77,6 +82,4 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap
