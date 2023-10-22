@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI with HTML and JavaScript</title>
+</head>
+<body>
+    <h1>Selamat datang di FastAPI</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <button id="uploadButton">Unggah Gambar</button>
+    <div id="dataContainer"></div>
+    <img id="uploadedImage" style="display: none;" src="" alt="Gambar yang diunggah">
+    
+    <script>
+        document.getElementById("uploadButton").addEventListener("click", async () => {
+            const imageInput = document.getElementById("imageInput");
+            const imageFile = imageInput.files[0];
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("image", imageFile);
+                
+                const response = await fetch("/upload/", {
+                    method: "POST",
+                    body: formData,
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById("dataContainer").innerHTML = `Pesan: ${data.message}`;
+                    document.getElementById("uploadedImage").src = URL.createObjectURL(imageFile);
+                    document.getElementById("uploadedImage").style.display = "block";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
