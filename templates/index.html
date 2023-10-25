@@ -3,34 +3,7 @@
 <head>
     <title>Waifu Selector</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .container {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        #uploadedImage {
-            max-width: 100%;
-            display: block;
-            margin: 0 auto;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-        }
-
-        #uploadButton {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        #uploadButton:hover {
-            background-color: #0056b3;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="templates\static\style.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -54,32 +27,8 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById("uploadButton").addEventListener("click", async () => {
-            const imageInput = document.getElementById("imageInput");
-            const imageFile = imageInput.files[0];
-            if (imageFile) {
-                const formData = new FormData();
-                formData.append("image", imageFile);
-
-                const response = await fetch("/upload/", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const predictionText = document.getElementById("predictionText");
-                    predictionText.innerText = `Hasil Prediksi: ${data.prediction}`;
-
-                    const uploadedImage = document.getElementById("uploadedImage");
-                    uploadedImage.src = data.image_filename;
-                    uploadedImage.style.display = "block";
-                }
-            }
-        });
-    </script>
-
+    
+    <script src="templates\static\main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap
