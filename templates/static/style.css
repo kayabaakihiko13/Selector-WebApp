@@ -1,0 +1,26 @@
+.container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#uploadedImage {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+
+#uploadButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#uploadButton:hover {
+    background-color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
