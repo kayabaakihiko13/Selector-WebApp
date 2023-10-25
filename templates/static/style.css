@@ -1,9 +1,11 @@
+.body{
+    background-image: url('templates/image/360_F_78894153_6vehwXxxFzCbIyFjmZdrtoqxk219gWnd.jpg');
+}
 .container {
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 5px;
 }
-
 #uploadedImage {
     max-width: 100%;
     display: block;
