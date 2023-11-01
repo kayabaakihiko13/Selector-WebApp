@@ -1,5 +1,11 @@
+body {
+    background-image: url('/static/image/wallpaperflare.com_wallpaper.jpg'); /* Ganti URL dengan URL gambar latar belakang Anda */
+    background-size: cover; /* Menyesuaikan gambar dengan ukuran layar */
+    background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+    background-attachment: fixed; 
+}
 .container {
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, .65);
     padding: 20px;
     border-radius: 5px;
 }

@@ -7,6 +7,8 @@ from fastapi.staticfiles import StaticFiles
 from image_classification import image_to_array, result_waifu_generate
 
 app = FastAPI()
+# this code for adding di
+app.mount("/static", StaticFiles(directory="templates/static"), name="static")
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 templates = Jinja2Templates(directory="templates")
 
