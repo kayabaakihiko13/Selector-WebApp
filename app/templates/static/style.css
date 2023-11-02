@@ -4,6 +4,13 @@ body {
     background-repeat: no-repeat; /* Menghindari pengulangan gambar */
     background-attachment: fixed; 
 }
+
+.title {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 28px;
+    color: #007BFF;
+}
+
 .container {
     background-color: rgba(248, 249, 250, .65);
     padding: 20px;
