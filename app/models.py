@@ -44,13 +44,13 @@ def image_to_array(img_file:str,resize:bool=True):
     
 def result_waifu_generate(arr: np.ndarray):
     # Load the saved model
-    model = joblib.load("model/saved_model.pkl")
+    model = joblib.load("app/model/saved_model.pkl")
 
     # Predict using the loaded model
     predictions = make_pipeline(StandardScaler(),model.predict(arr))
 
     # Load label mapping from the JSON file
-    with open("model/class_dictionary.json", 'r') as json_file:
+    with open("app/model/class_dictionary.json", 'r') as json_file:
         label_mapping = json.load(json_file)
 
     # Map predictions to labels

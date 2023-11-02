@@ -12,12 +12,12 @@ from models import image_to_array, result_waifu_generate
 app = FastAPI()
 
 # Serve static files from 'templates/static'
-app.mount("/static", StaticFiles(directory="templates/static"), name="static")
+app.mount("/static", StaticFiles(directory="app/templates/static"), name="static")
 
 # Serve uploaded images from 'uploads' directory
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+app.mount("/uploads", StaticFiles(directory="app/uploads"), name="uploads")
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 
 class ImageUploadService:
     def __init__(self, upload_directory):
@@ -32,7 +32,7 @@ class ImageUploadService:
             image_file.write(file.file.read())
         return image_path
 
-image_upload_service = ImageUploadService("uploads/")
+image_upload_service = ImageUploadService("app/uploads/")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
