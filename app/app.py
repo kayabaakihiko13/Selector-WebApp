@@ -1,5 +1,3 @@
-# app.py
-
 import os
 import uuid
 from fastapi import FastAPI, File, UploadFile
@@ -15,18 +13,24 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/templates/static"), name="static")
 
 # Serve uploaded images from 'uploads' directory
+
+# check there is folder `uploads`
+if not os.path.exists("app/uploads/"):
+    os.makedirs("app/uploads")
+
 app.mount("/uploads", StaticFiles(directory="app/uploads"), name="uploads")
 
 templates = Jinja2Templates(directory="app/templates")
 
 class ImageUploadService:
-    def __init__(self, upload_directory):
+    def __init__(self, upload_directory:str):
         self.upload_directory = upload_directory
 
     def save_image(self, file: UploadFile):
         # Generate a random filename using uuid
         random_filename = str(uuid.uuid4())
-        file_extension = os.path.splitext(file.filename)[1]  # Get the original file extension
+        # Get the original file extension
+        file_extension = os.path.splitext(file.filename)[1]  
         image_path = os.path.join(self.upload_directory, f"{random_filename}{file_extension}")
         with open(image_path, "wb") as image_file:
             image_file.write(file.file.read())
@@ -43,4 +47,5 @@ async def upload_images(request: Request, image: UploadFile = File(...)):
     image_filename = image_upload_service.save_image(image)
     image_arr = image_to_array(image_filename)
     prediction = result_waifu_generate(image_arr)
-    return JSONResponse(content={"prediction": prediction, "image_filename": f"/uploads/{os.path.basename(image_filename)}"})
+    return JSONResponse(content={"prediction": prediction, 
+                                 "image_filename": f"/uploads/{os.path.basename(image_filename)}"})
